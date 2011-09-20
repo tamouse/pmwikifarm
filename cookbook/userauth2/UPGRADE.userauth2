@@ -1,0 +1,11 @@
+!!!Updating the package
+Just copy the unpacked files over your existing userauth2 files. Your 
+permission setup will be left untouched. Only the help file needs 
+manually moved to [@wikilib.d/@] as described above.
+
+!!!Resetting the permission setup
+For resetting the permission setup, remove the dirs [@userperms/@], 
+[@groupperms/@], [@ipranges/@] with their content. Consider deleting
+[@profiles/@], where passwords are saved (unless otherwise configured).
+
+

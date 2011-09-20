@@ -1,0 +1,18 @@
+## files and patterns to ignore
+
+# The usual suspects
+
+*~
+*.bak
+*.zip
+*.tgz
+*.tar.gz
+*.Z
+*.bzip2
+
+.DS_Store
+.backups/
+
+
+# Disregard the dynamic portion
+var/*

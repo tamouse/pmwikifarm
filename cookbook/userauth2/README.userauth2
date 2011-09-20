@@ -1,0 +1,20 @@
+This is UserAuth2, an authentication module for the pmwiki engine (www.pmwiki.org).
+
+Copyright 2007 Thomas Pitschel, pmwikidev@sigproc.de
+
+See LICENSE.userauth2 for details.
+
+Find detailed and always up to date information about this package at 
+www.pmwiki.org/wiki/Cookbook/UserAuth2
+
+The version of this package should be indicated either by the package name or
+can be read from the line starting with
+
+$RecipeInfo['UserAuth2']['Version'] = 'xxxx-xx-xx';
+
+in userauth2.php
+
+Upgrade
+=======
+See UPGRADE.userauth2
+
