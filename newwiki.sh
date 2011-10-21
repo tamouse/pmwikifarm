@@ -3,7 +3,7 @@
 # newwiki - create a new wikifield in the wikifarm
 #
 #  Created by Tamara Temple on 2011-09-20.
-#  Version: Time-stamp: <2011-10-21 14:33:15 tamara>
+#  Version: Time-stamp: <2011-10-21 14:38:03 tamara>
 #  Copyright (c) 2011 Tamara Temple Web Development. 
 #  License: GPLv3
 #
@@ -65,8 +65,9 @@ cat docs/sample-local-config.php | \
 
 cp $FARMDIR/docs/sample-config.php local/local-config.php
 
-mkdir -p $WIKIFIELDROOT || exit -1
 cd $WIKIFIELDROOT
+mkdir -p $WIKIFIELDNAM || exit -1
+cd $WIKIFIELDNAME
 ln -s $SKELDIR/index.php .
 
 
