@@ -3,7 +3,7 @@
 # newwiki - create a new wikifield in the wikifarm
 #
 #  Created by Tamara Temple on 2011-09-20.
-#  Version: Time-stamp: <2011-10-21 15:01:41 tamara>
+#  Version: Time-stamp: <2011-10-21 15:03:52 tamara>
 #  Copyright (c) 2011 Tamara Temple Web Development. 
 #  License: GPLv3
 #
@@ -43,7 +43,7 @@ if [ ! -d "$WIKIFIELDROOT" ] ; then
     exit -1;
 fi
 
-if [! -w "$WIKIFIELDROOT" ] ; then
+if [ ! -w "$WIKIFIELDROOT" ] ; then
     echo "$WIKIFIELDROOT is not writeable. Make sure it is writeable first."
     exit -1
 fi
