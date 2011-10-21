@@ -3,7 +3,7 @@
 # newwiki - create a new wikifield in the wikifarm
 #
 #  Created by Tamara Temple on 2011-09-20.
-#  Version: Time-stamp: <2011-10-21 14:59:05 tamara>
+#  Version: Time-stamp: <2011-10-21 15:01:41 tamara>
 #  Copyright (c) 2011 Tamara Temple Web Development. 
 #  License: GPLv3
 #
@@ -34,7 +34,7 @@ WIKIFIELDNAME=$(echo $WIKIFIELDNAME|tr -cd '[:alnum:]'|tr '[:upper:]' '[:lower:]
 DEFAULTSKIN=pmwiki
 read -p "Which skin do you wish to use? [$DEFAULTSKIN] " SKIN
 if [ -z "$SKIN" ] ; then
-    $SKIN="$DEFAULTSKIN"
+    SKIN="$DEFAULTSKIN"
 fi
 
 read -p "Enter the wiki field's web server folder: " WIKIFIELDROOT
