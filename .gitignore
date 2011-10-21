@@ -16,3 +16,4 @@
 
 # Disregard the dynamic portion
 var/*
+!var/README
