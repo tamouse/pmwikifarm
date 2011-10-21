@@ -4,13 +4,14 @@
 #
 # Author: Tamara Temple <tamara@tamaratemple.com>
 # Created: 2011/10/21
-# Time-stamp: <2011-10-21 13:19:14 tamara>
+# Time-stamp: <2011-10-21 13:36:44 tamara>
 # Copyright (c) 2011 Tamara Temple Web Development
 # License: GPLv3
 
 if [ ! -f pmwiki.php ] ; then
     echo "$0 must be run after pmwiki is installed. See README for more info"
     exit -1
+fi
 
 PATH_TO_FARM=$(pwd)
 
