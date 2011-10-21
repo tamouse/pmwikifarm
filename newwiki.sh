@@ -3,7 +3,7 @@
 # newwiki - create a new wikifield in the wikifarm
 #
 #  Created by Tamara Temple on 2011-09-20.
-#  Version: Time-stamp: <2011-10-21 14:40:44 tamara>
+#  Version: Time-stamp: <2011-10-21 14:59:05 tamara>
 #  Copyright (c) 2011 Tamara Temple Web Development. 
 #  License: GPLv3
 #
@@ -13,7 +13,7 @@
 # after installing pmwiki.
 FARMDIR=@PATHTOWIKIFARM@
 FIELDSDIR=$FARMDIR/var
-SKELDIR=$FIELDSDIR/skel
+SKELDIR=$FARMDIR/skel
 
 read -p "Enter the wiki's title: " WIKITITLE
 if [ -z "$WIKITITLE" ] ; then
