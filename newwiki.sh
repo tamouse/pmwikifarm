@@ -3,7 +3,7 @@
 # newwiki - create a new wikifield in the wikifarm
 #
 #  Created by Tamara Temple on 2011-09-20.
-#  Version: Time-stamp: <2011-10-21 14:01:27 tamara>
+#  Version: Time-stamp: <2011-10-21 14:03:35 tamara>
 #  Copyright (c) 2011 Tamara Temple Web Development. 
 #  License: GPLv3
 #
@@ -25,7 +25,7 @@ DEFAULTWIKIFIELDNAME=$(echo $WIKITITLE|tr -cd '[:alnum:]'|tr '[:upper:]' '[:lowe
 
 read -p "Enter the wiki's field name [$DEFAULTWIKIFIELDNAME]: " WIKIFIELDNAME
 if [ -z "$WIKIFIELDNAME" ] ; then
-    WIKIFIELDNAME=$DEFAULTWIKIFIELD
+    WIKIFIELDNAME=$DEFAULTWIKIFIELDNAME
 fi
 WIKIFIELDNAME=$(echo $WIKIFIELDNAME|tr -cd '[:alnum:]'|tr '[:upper:]' '[:lower:]')
 
