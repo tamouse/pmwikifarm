@@ -4,7 +4,7 @@
 #
 # Author: Tamara Temple <tamara@tamaratemple.com>
 # Created: 2011/10/21
-# Time-stamp: <2011-10-21 13:36:44 tamara>
+# Time-stamp: <2011-10-21 13:50:27 tamara>
 # Copyright (c) 2011 Tamara Temple Web Development
 # License: GPLv3
 
@@ -15,7 +15,8 @@ fi
 
 PATH_TO_FARM=$(pwd)
 
-sed -i.bak -e "s/@PATHTOWIKIFARM@/$PATH_TO_FARM/" skel/index.php
+sed -i.bak -e "s|@PATHTOWIKIFARM@|$PATH_TO_FARM|" skel/index.php
+sed -i.bak -e "s|@PATHTOWIKIFARM@|$PATH_TO_FARM|" newwiki.sh
 
 cp site/sample-site-config.php local/config.php
 
