@@ -3,7 +3,7 @@
 # newwiki - create a new wikifield in the wikifarm
 #
 #  Created by Tamara Temple on 2011-09-20.
-#  Version: Time-stamp: <2011-10-21 15:03:52 tamara>
+#  Version: Time-stamp: <2011-10-21 16:17:10 tamara>
 #  Copyright (c) 2011 Tamara Temple Web Development. 
 #  License: GPLv3
 #
@@ -69,6 +69,22 @@ cd $WIKIFIELDROOT
 mkdir -p $WIKIFIELDNAME || exit -1
 cd $WIKIFIELDNAME
 ln -s $SKELDIR/index.php .
+ln -s $FARMDIR/pub .
+ln -s $FIELDSDIR/$WIKIFIELDNAME/local .
+ln -s $FIELDSDIR/$WIKIFIELDNAME/uploads .
+
+echo "Make sure directories have proper permissions."
+echo
+echo "$FIELDSDIR/$WIKIFIELDNAME/wiki.d/ needs to be writeable by the server."
+echo "$FIELDSDIR/$WIKIFIELDNAME/uploads/ needs to be writeable by the server."
+echo
+echo "These can be set by:"
+echo
+echo "   $ cd $FIELDSDIR/$WIKIFIELDNAME"
+echo "   $ sudo chown server-user:server-group wiki.d/ uploads/"
+echo
+echo "Substituting what ever user and group your server runs as"
+echo "for server-user:server-group."
 
 
 

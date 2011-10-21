@@ -1,5 +1,10 @@
 <?php if (!defined('PmWiki') || !isset($FarmD) ||
-!isset($WikiFieldName)) exit();
+!isset($WikiFieldName)) {
+    echo "NOT SET UP CORRECTLY!!!\n";
+    echo "FarmD=[$FarmD]\n";
+    echo "WikiFieldName=[$WikiFieldName]\n";
+    exit();
+  }
 /**
  * setworkdir - set the working directory for each wikifield
  *
