@@ -1,0 +1,21 @@
+# -*- text -*-
+#
+# README
+#
+# @author Tamara Temple <tamara@tamaratemple.com>
+# @since 2011/10/21
+# @version Time-stamp: <2011-10-21 10:24:41 tamara>
+# @copyright (c) Tamara Temple Web Development
+# @license GPLv3
+#
+
+Documents and files local to the field, but not used directly.
+
+Two files in particular, are used to create customizations:
+
+sample-config.php - copy to $FieldD/local as config.php and make local
+                    customizations in this file.
+
+sample-pw.php     - copy to $FieldD/local as pw.php and fill out the
+                    password entries as appropriate.
+

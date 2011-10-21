@@ -1,7 +1,0 @@
-# Assumes the vhost name will be the same as the wiki field
-
-$HTTP["host"] =~ "^@WIKIFIELDNAME@$" {  
-	server.name = "@WIKIFIELDNAME@"
-	include "/Users/tamara/pmwiki-latest/vhosts.d/common.conf"
-}
-

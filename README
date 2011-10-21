@@ -1,0 +1,100 @@
+# -*- text -*-
+#
+# README
+#
+# @author Tamara Temple <tamara@tamaratemple.com>
+# @since 2011/10/21
+# @version Time-stamp: <2011-10-21 10:00:09 tamara>
+# @copyright (c) Tamara Temple Web Development
+# @license GPLv3
+#
+
+
+
+This installation sets up a pmwiki farm, which allows you to run
+multiple pmwikis using a single installation of the pmwiki
+software. This setup is different from the typical pmwiki farm setup
+in that it allows you to have the field accessed from a completely
+separate directory path than the farm itself, and field directories
+don't have to be siblings of each other. This will allow the field to
+be in, for example, /var/www/vhosts/example.com/wiki directory, while
+the farm and the field data will be another non-server accessible
+path, such as /var/farm.
+
+In the steps below, the farm is assumed to be in /var/farm, and the
+field in /var/www/vhosts/example.com/wiki. Adjust accordingly.
+
+INSTALLATION
+============
+
+Getting the wiki farm:
+
+    git clone git://github.com/tamouse/pmwikifields.git /var/farm
+
+This will install a read-only version of the farm. If you want to
+collaborate on the farm project, install a version into a clean
+directory where you can work on the code without actually installing
+and creating a farm.
+
+Obtain the latest version of pmwiki from:
+
+    http://www.pmwiki.org/pub/pmwiki/pmwiki-latest.tgz
+
+Save the .tgz file into a safe space, and unpack it:
+
+    cd /path/where/you/saved/pmwiki
+    tar zxvf pmwiki-latest.tgz
+
+PmWiki will be unpacked into a directory such as pmwiki-2.2.34/
+(depending on the version number of the current pmwiki software). Copy
+this into the farm directory:
+
+    cp -r pmwiki-2.2.34/* /var/farm/pmwiki
+
+Next, run the install.sh in the new installation:
+
+    cd /var/farm/
+    ./install.sh
+
+This will modify and create all the necessary parts that will be
+needed to run a farm.
+
+CREATING A NEW FIELD
+====================
+
+To create a new wiki field, run the newwiki.sh script and respond to
+the prompts to customize your new wiki.
+
+    cd /var/farm
+    ./newwiki.sh
+
+This script will build the field from the contents of the
+/var/farm/skel directory, modifying the contents as needed to make it
+fit the new wiki you wish to create. If you follow the prompts
+accurately, your new field will be set up as follows:
+
+  * new field data in /var/farm/var/field
+  * new field web site in /var/www/vhosts/example.com/wiki
+
+The field data directory contains the following:
+
+   cookbook/ - for storing recipes exclusive to this field
+   docs/ - contains sample files to create configurations for this
+           field
+   local/ - where per-field configuration files exist
+   pub/ - a symlink to the wikifarm pub/ directory
+   wiki.d/ - where the wiki's pages are stored
+   uploads/ - where the wiki's attachments are stored
+
+The field web site contains two files:
+
+   index.php - a symlink to /var/farm/skel/index.php, which should
+               have been modified so $FarmD is set to the right path.
+   .htaccess - contains the apache directives to make the farm work
+               correctly, including rewrite directives to make clean
+               urls work.
+
+Note that if you want to have other files accessible to the server,
+you can add them to the field web site as you see fit.
+
+
