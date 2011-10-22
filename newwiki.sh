@@ -3,7 +3,7 @@
 # newwiki - create a new wikifield in the wikifarm
 #
 #  Created by Tamara Temple on 2011-09-20.
-#  Version: Time-stamp: <2011-10-21 16:17:10 tamara>
+#  Version: Time-stamp: <2011-10-21 20:26:32 tamara>
 #  Copyright (c) 2011 Tamara Temple Web Development. 
 #  License: GPLv3
 #
@@ -18,7 +18,7 @@ SKELDIR=$FARMDIR/skel
 read -p "Enter the wiki's title: " WIKITITLE
 if [ -z "$WIKITITLE" ] ; then
     echo "You MUST specify a wiki title"
-    exit -1
+    exit 1
 fi
 
 WIKITITLE=$(echo "$WIKITITLE" | tr -d '/') # wiki titles and such cannot have a slash in them -- pmwiki rules
@@ -40,20 +40,33 @@ fi
 read -p "Enter the wiki field's web server folder: " WIKIFIELDROOT
 if [ ! -d "$WIKIFIELDROOT" ] ; then
     echo "$WIKIFIELDROOT does not exist. Create it first."
-    exit -1;
+    exit 2;
 fi
 
 if [ ! -w "$WIKIFIELDROOT" ] ; then
     echo "$WIKIFIELDROOT is not writeable. Make sure it is writeable first."
-    exit -1
+    exit 3
 fi
 
-
-mkdir -p $FIELDSDIR/$WIKIFIELDNAME || exit -1
+DEFAULTLINKPUB=0
+read -p "Do you want to use the site-wide pub directory? (Y/n) " LINKPUB
+if [ -z "$LINKPUB" ] ; then
+    LINKPUB=$DEFAULTLINKPUB
+else
+    LINKPUB=${$LINKPUB:0:1}
+    LINKPUB=$(echo "$LINKPUB" | tr '[:upper:]' '[:lower:]')
+    if [ "y" == "$LINKPUB" ] ; then
+	LINKPUB=0
+    else
+	LINKPUB=1
+    fi
+fi
+	
+mkdir -p $FIELDSDIR/$WIKIFIELDNAME || exit 4
 cd $FIELDSDIR/$WIKIFIELDNAME
 ln -s $FARMDIR/pub .
-for d in $FARMDIR/skel/* ; do
-    if [ -d $d ] ; then
+for d in $SKELDIR/* ; do
+    if [ -d $d ] ; then # copy just the directories; the files go straight into the wiki field's web directory
 	cp -r $d .
     fi
 done
@@ -63,15 +76,22 @@ cat docs/sample-local-config.php | \
     -e "s/@WIKITITLE@/$WIKITITLE/g" \
     -e "s/@SKIN@/$SKIN/g" > local/config.php
 
-cp $FARMDIR/docs/sample-config.php local/local-config.php
+cp $FARMDIR/docs/sample-config.php local/local-config.php # this file has already been made benign by the install script
 
 cd $WIKIFIELDROOT
-mkdir -p $WIKIFIELDNAME || exit -1
+mkdir -p $WIKIFIELDNAME || exit 5
 cd $WIKIFIELDNAME
 ln -s $SKELDIR/index.php .
-ln -s $FARMDIR/pub .
+if $LINKPUB ; then
+    ln -s $FARMDIR/pub .
+else
+    cp -r $FARMDIR/pub $FIELDSDIR/$WIKIFIELDNAME
+    ln -s $FIELDSDIR/$WIKIFIELDNAME/pub .
+fi
 ln -s $FIELDSDIR/$WIKIFIELDNAME/local .
 ln -s $FIELDSDIR/$WIKIFIELDNAME/uploads .
+cp $SKELDIR/.htaccess .
+
 
 echo "Make sure directories have proper permissions."
 echo
@@ -86,5 +106,4 @@ echo
 echo "Substituting what ever user and group your server runs as"
 echo "for server-user:server-group."
 
-
-
+exit 0

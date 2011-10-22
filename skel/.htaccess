@@ -1,0 +1,25 @@
+# Access rules for apache servers for pmwiki farm
+# (Differs from standard CleanURLs advice because in this installation,
+# the wiki is driving via index.php, which includes pmwiki.php in the
+# farm.
+
+## If you have set $EnablePathInfo=1 for clean urls, then uncomment
+## the rules below so they will work.
+
+# Use mod_rewrite to enable "Clean URLs" for a PmWiki installation.
+#RewriteEngine On
+# Define the rewrite base.
+#RewriteBase /
+# Send requests without parameters to index.php.
+#RewriteRule ^$           index.php  [L]
+
+# Don't rewrite requests for any files, directories, or symbolic
+# links (shortcuts) that exist on the filesystem.
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteCond %{REQUEST_FILENAME} !-l
+
+# Send requests to index.php, appending the query string part.
+# Requests that begin with Capital letter, a number or a Unicode character
+# get sent to pmwiki
+#RewriteRule ^([A-Z0-9\xa0-\xff].*)$ index.php?n=$1  [QSA,L]
