@@ -4,7 +4,7 @@
 #
 # @author Tamara Temple <tamara@tamaratemple.com>
 # @since 2011/10/21
-# @version Time-stamp: <2011-10-21 10:00:09 tamara>
+# @version Time-stamp: <2011-10-21 21:27:20 tamara>
 # @copyright (c) Tamara Temple Web Development
 # @license GPLv3
 #
@@ -73,8 +73,8 @@ This script will build the field from the contents of the
 fit the new wiki you wish to create. If you follow the prompts
 accurately, your new field will be set up as follows:
 
-  * new field data in /var/farm/var/field
-  * new field web site in /var/www/vhosts/example.com/wiki
+  * new field working directory in /var/farm/var/field
+  * new field web site in /var/www/vhosts/example.com/field
 
 The field data directory contains the following:
 
@@ -86,15 +86,28 @@ The field data directory contains the following:
    wiki.d/ - where the wiki's pages are stored
    uploads/ - where the wiki's attachments are stored
 
-The field web site contains two files:
+The field web site contains several symbolic links and a file:
 
    index.php - a symlink to /var/farm/skel/index.php, which should
                have been modified so $FarmD is set to the right path.
+
+   local/ - symlink to the field's local/ directory
+
+   pub/ - symlink to either the wiki farm's pub directory or a field
+          specific pub directory
+
+   uploads/ - symlink to directory for storing attachments in the
+              field's working directory
+
    .htaccess - contains the apache directives to make the farm work
                correctly, including rewrite directives to make clean
                urls work.
 
-Note that if you want to have other files accessible to the server,
-you can add them to the field web site as you see fit.
+Restrictions
+------------
 
+A Wiki Name can only have upper and lower case letters, and numbers,
+and must begin with an upper case letter.
+
+A Field Name can only have lower case letters and numbers.
 
