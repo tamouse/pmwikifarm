@@ -4,7 +4,7 @@
 #
 # @author Tamara Temple <tamara@tamaratemple.com>
 # @since 2011/10/21
-# @version Time-stamp: <2011-10-21 21:27:20 tamara>
+# @version Time-stamp: <2011-11-07 18:56:05 tamara>
 # @copyright (c) Tamara Temple Web Development
 # @license GPLv3
 #
@@ -29,7 +29,7 @@ INSTALLATION
 
 Getting the wiki farm:
 
-    git clone git://github.com/tamouse/pmwikifields.git /var/farm
+    git clone git://github.com/tamouse/pmwikifields.git /path/to/farm
 
 This will install a read-only version of the farm. If you want to
 collaborate on the farm project, install a version into a clean
@@ -42,18 +42,18 @@ Obtain the latest version of pmwiki from:
 
 Save the .tgz file into a safe space, and unpack it:
 
-    cd /path/where/you/saved/pmwiki
+    cd /path/where/you/saved/pmwiki-latest.tgz
     tar zxvf pmwiki-latest.tgz
 
 PmWiki will be unpacked into a directory such as pmwiki-2.2.34/
 (depending on the version number of the current pmwiki software). Copy
 this into the farm directory:
 
-    cp -r pmwiki-2.2.34/* /var/farm/pmwiki
+    cp -r pmwiki-2.2.34/* /path/to/farm
 
 Next, run the install.sh in the new installation:
 
-    cd /var/farm/
+    cd /path/to/farm/
     ./install.sh
 
 This will modify and create all the necessary parts that will be
