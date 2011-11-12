@@ -3,15 +3,15 @@
 # newwiki - create a new wikifield in the wikifarm
 #
 #  Created by Tamara Temple on 2011-09-20.
-#  Version: Time-stamp: <2011-10-21 20:26:32 tamara>
+#  Version: Time-stamp: <2011-11-12 04:27:56 tamara>
 #  Copyright (c) 2011 Tamara Temple Web Development. 
 #  License: GPLv3
 #
 
-# Configure these two variables to your installation
-# These should be set by the install.sh script which should be run
-# after installing pmwiki.
+# The following should be set by the install.sh or update.sh script
+# which should be run after installing pmwiki.
 FARMDIR=@PATHTOWIKIFARM@
+
 FIELDSDIR=$FARMDIR/var
 SKELDIR=$FARMDIR/skel
 
@@ -53,7 +53,7 @@ read -p "Do you want to use the site-wide pub directory? (Y/n) " LINKPUB
 if [ -z "$LINKPUB" ] ; then
     LINKPUB=$DEFAULTLINKPUB
 else
-    LINKPUB=${$LINKPUB:0:1}
+    LINKPUB=${LINKPUB:0:1}
     LINKPUB=$(echo "$LINKPUB" | tr '[:upper:]' '[:lower:]')
     if [ "y" == "$LINKPUB" ] ; then
 	LINKPUB=0
@@ -64,7 +64,6 @@ fi
 	
 mkdir -p $FIELDSDIR/$WIKIFIELDNAME || exit 4
 cd $FIELDSDIR/$WIKIFIELDNAME
-ln -s $FARMDIR/pub .
 for d in $SKELDIR/* ; do
     if [ -d $d ] ; then # copy just the directories; the files go straight into the wiki field's web directory
 	cp -r $d .
@@ -79,8 +78,6 @@ cat docs/sample-local-config.php | \
 cp $FARMDIR/docs/sample-config.php local/local-config.php # this file has already been made benign by the install script
 
 cd $WIKIFIELDROOT
-mkdir -p $WIKIFIELDNAME || exit 5
-cd $WIKIFIELDNAME
 ln -s $SKELDIR/index.php .
 if $LINKPUB ; then
     ln -s $FARMDIR/pub .
@@ -88,6 +85,7 @@ else
     cp -r $FARMDIR/pub $FIELDSDIR/$WIKIFIELDNAME
     ln -s $FIELDSDIR/$WIKIFIELDNAME/pub .
 fi
+ln -s $FIELDSDIR/$WIKIFIELDNAME/cookbook .
 ln -s $FIELDSDIR/$WIKIFIELDNAME/local .
 ln -s $FIELDSDIR/$WIKIFIELDNAME/uploads .
 cp $SKELDIR/.htaccess .
@@ -101,9 +99,18 @@ echo
 echo "These can be set by:"
 echo
 echo "   $ cd $FIELDSDIR/$WIKIFIELDNAME"
-echo "   $ sudo chown server-user:server-group wiki.d/ uploads/"
+echo "   $ chown server-user:server-group wiki.d uploads"
 echo
 echo "Substituting what ever user and group your server runs as"
 echo "for server-user:server-group."
+echo
+echo "Alternatively, you can set permissions as follows:"
+echo
+echo "   $ cd $FIELDSDIR/$WIKIFIELDNAME"
+echo "   $ chmod -R 2777 wiki.d uploads"
+echo
+echo "And this will permit server-user to write in those directories"
+echo
+
 
 exit 0
