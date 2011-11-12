@@ -4,11 +4,11 @@
 #
 # Author: Tamara Temple <tamara@tamaratemple.com>
 # Created: 2011/10/21
-# Time-stamp: <2011-10-21 20:40:36 tamara>
+# Time-stamp: <2011-11-12 04:51:35 tamara>
 # Copyright (c) 2011 Tamara Temple Web Development
 # License: GPLv3
 
-if [ ! -f pmwiki.php ] ; then
+if [ ! -f pmwiki-latest/pmwiki.php ] ; then
     echo "$0 must be run after pmwiki is installed. See README for more info"
     exit -1
 fi

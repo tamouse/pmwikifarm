@@ -3,7 +3,7 @@
 # newwiki - create a new wikifield in the wikifarm
 #
 #  Created by Tamara Temple on 2011-09-20.
-#  Version: Time-stamp: <2011-11-12 04:27:56 tamara>
+#  Version: Time-stamp: <2011-11-12 04:50:40 tamara>
 #  Copyright (c) 2011 Tamara Temple Web Development. 
 #  License: GPLv3
 #
@@ -38,13 +38,19 @@ if [ -z "$SKIN" ] ; then
 fi
 
 read -p "Enter the wiki field's web server folder: " WIKIFIELDROOT
-if [ ! -d "$WIKIFIELDROOT" ] ; then
-    echo "$WIKIFIELDROOT does not exist. Create it first."
+if [ -z "$WIKIFIELDROOT" ] ; then
+    echo "Must specify a location for the wikifield document root"
     exit 2;
 fi
 
-if [ ! -w "$WIKIFIELDROOT" ] ; then
-    echo "$WIKIFIELDROOT is not writeable. Make sure it is writeable first."
+$WIKIFIELDROOTDIR = dirname $WIKIFIELDROOT
+if [ ! -d "$WIKIFIELDROOTDIR" ] ; then
+    echo "$WIKIFIELDROOTDIR does not exist. Create it first."
+    exit 2;
+fi
+
+if [ ! -w "$WIKIFIELDROOTDIR" ] ; then
+    echo "$WIKIFIELDROOTDIR is not writeable. Make sure it is writeable first."
     exit 3
 fi
 

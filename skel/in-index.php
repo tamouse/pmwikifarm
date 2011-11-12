@@ -4,7 +4,7 @@
  *
  * @author Tamara Temple tamara@tamaratemple.com
  * @created 2011-09-20
- * @version Time-stamp: <2011-10-21 09:05:12 tamara>
+ * @version Time-stamp: <2011-11-12 04:52:16 tamara>
  * @copyright 2011 Tamara Temple Web Development
  * @license GPLv3
  **/
@@ -31,4 +31,4 @@ $FarmD = "@PATHTOWIKIFARM@";
 /**
  * Start pmwiki
  */
-require_once("$FarmD/pmwiki.php");
+require_once("$FarmD/pmwiki-latest/pmwiki.php");
