@@ -1,1 +1,0 @@
-/home/tamara/public_html/testfarm/pmwiki-latest/wikilib.d

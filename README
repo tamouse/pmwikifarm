@@ -35,6 +35,10 @@ Create links in the farm directory to directories in pmwiki-latest:
     ln -s pmwiki-latest/scripts .
     ln -s pmwiki-latest/wikilib.d .
 
+Copy the pmwiki-latest/pub directory to the farm directory:
+
+    cp -r pmwiki-latest/pub .
+
 Next, run the install.sh in the new installation:
 
     ./install.sh
