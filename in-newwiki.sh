@@ -3,7 +3,7 @@
 # newwiki - create a new wikifield in the wikifarm
 #
 #  Created by Tamara Temple on 2011-09-20.
-#  Version: Time-stamp: <2011-11-12 04:50:40 tamara>
+#  Version: Time-stamp: <2011-11-12 05:51:36 tamara>
 #  Copyright (c) 2011 Tamara Temple Web Development. 
 #  License: GPLv3
 #
@@ -12,6 +12,7 @@
 # which should be run after installing pmwiki.
 FARMDIR=@PATHTOWIKIFARM@
 
+PMWIKIDIR=$FARMDIR/pmwiki-latest
 FIELDSDIR=$FARMDIR/var
 SKELDIR=$FARMDIR/skel
 
@@ -76,12 +77,12 @@ for d in $SKELDIR/* ; do
     fi
 done
 
-cat docs/sample-local-config.php | \
+cat $PMWIKIDIR/docs/sample-local-config.php | \
     sed -e "s/@WIKIFIELDNAME@/$WIKIFIELDNAME/g" \
     -e "s/@WIKITITLE@/$WIKITITLE/g" \
     -e "s/@SKIN@/$SKIN/g" > local/config.php
 
-cp $FARMDIR/docs/sample-config.php local/local-config.php # this file has already been made benign by the install script
+cp $PMWIKIDIR/docs/sample-config.php local/local-config.php # this file has already been made benign by the install script
 
 cd $WIKIFIELDROOT
 ln -s $SKELDIR/index.php .
