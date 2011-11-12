@@ -4,7 +4,7 @@
 #
 # Author: Tamara Temple <tamara@tamaratemple.com>
 # Created: 2011/10/21
-# Time-stamp: <2011-11-12 05:40:28 tamara>
+# Time-stamp: <2011-11-12 06:53:54 tamara>
 # Copyright (c) 2011 Tamara Temple Web Development
 # License: GPLv3
 
@@ -19,8 +19,8 @@ PATH_TO_FARM=$(pwd)
 
 cat skel/in-index.php | sed -e "s|@PATHTOWIKIFARM@|$PATH_TO_FARM|" > skel/index.php
 cat in-newwiki.sh | sed -e "s|@PATHTOWIKIFARM@|$PATH_TO_FARM|" > newwiki.sh
+chmod +x newwiki.sh
 
-cp site/sample-site-config.php $PMWIKIDIR/local/config.php
 
 # get rid of the WikiTitle declaration in the
 # pmwiki/local/sample-config.php file so it doesn't get reset by
