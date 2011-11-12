@@ -1,0 +1,57 @@
+CREATING A NEW FIELD
+====================
+
+To create a new wiki field, run the newwiki.sh script and respond to
+the prompts to customize your new wiki.
+
+    cd /path/to/farm
+    ./newwiki.sh
+
+The script will prompt for the field name, the location of the field
+document root directory, and whether you wish to have a local version
+of the pub directory or link to the farm pub directory.
+
+This script will build the field from the contents of the
+/path/to/farm/skel directory, modifying the contents as needed to make
+it fit the new wiki you wish to create. If you follow the prompts
+accurately, your new field will be set up as follows:
+
+  * new field working directory in /path/to/farm/var/field
+  * new field document root where specified
+
+The field working directory contains the following:
+
+   cookbook/ - for storing recipes exclusive to this field
+   docs/ - contains sample files to create configurations for this
+           field
+   local/ - where per-field configuration files exist
+   pub/ - either a symlink to the wikifarm pub/ directory or a copy of it
+   wiki.d/ - where the wiki's pages are stored
+   uploads/ - where the wiki's attachments are stored
+
+The field's document root contains several symbolic links and a file:
+
+   index.php - a symlink to /var/farm/skel/index.php, which should
+               have been modified so $FarmD is set to the right path.
+
+   cookbook/ - symlink to the field's cookbook/ directory
+
+   local/ - symlink to the field's local/ directory
+
+   pub/ - symlink to either the field's pub/ directory
+
+   uploads/ - symlink to the field's directory for storing attachments in the
+              field's working directory
+
+   .htaccess - contains the apache directives to make the farm work
+               correctly, including rewrite directives to make clean
+               urls work.
+
+Restrictions
+------------
+
+A Wiki Name can only have upper and lower case letters, and numbers,
+and must begin with an upper case letter.
+
+A Field Name can only have lower case letters and numbers.
+
