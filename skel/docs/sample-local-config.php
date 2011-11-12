@@ -4,7 +4,7 @@
  *
  * @author Tamara Temple <tamara@tamaratemple.com>
  * @since 2011/10/21
- * @version Time-stamp: <2011-10-21 12:40:21 tamara>
+ * @version Time-stamp: <2011-11-12 06:21:45 tamara>
  * @copyright (c) Tamara Temple Web Development
  * @license GPLv3
  *
@@ -23,8 +23,6 @@ include_once("$FarmD/local/config.php"); // site-wide configuration settings
  */
 
 $WikiFieldName = '@WIKIFIELDNAME@';
-$WikiTitle = '@WIKITITLE@';
-$Skin = '@SKIN@';
 
 include_once("$FarmD/setworkdir.php");	// determine working paths
 

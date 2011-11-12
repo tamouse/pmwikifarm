@@ -4,7 +4,7 @@
 #
 # @author Tamara Temple <tamara@tamaratemple.com>
 # @since 2011/10/21
-# @version Time-stamp: <2011-11-07 18:56:05 tamara>
+# @version Time-stamp: <2011-11-12 06:48:23 tamara>
 # @copyright (c) Tamara Temple Web Development
 # @license GPLv3
 #
@@ -42,18 +42,17 @@ Obtain the latest version of pmwiki from:
 
 Save the .tgz file into a safe space, and unpack it:
 
-    cd /path/where/you/saved/pmwiki-latest.tgz
-    tar zxvf pmwiki-latest.tgz
+    cd /path/to/farm
+    tar zxvf /path/to/pmwiki-latest.tgz
 
 PmWiki will be unpacked into a directory such as pmwiki-2.2.34/
-(depending on the version number of the current pmwiki software). Copy
-this into the farm directory:
+(depending on the version number of the current pmwiki software).
+Link to this in the farm:
 
-    cp -r pmwiki-2.2.34/* /path/to/farm
+    ln -s pmwiki-2.2.xx pmwiki-latest
 
 Next, run the install.sh in the new installation:
 
-    cd /path/to/farm/
     ./install.sh
 
 This will modify and create all the necessary parts that will be
@@ -65,7 +64,7 @@ CREATING A NEW FIELD
 To create a new wiki field, run the newwiki.sh script and respond to
 the prompts to customize your new wiki.
 
-    cd /var/farm
+    cd /path/to/farm
     ./newwiki.sh
 
 This script will build the field from the contents of the
@@ -73,8 +72,8 @@ This script will build the field from the contents of the
 fit the new wiki you wish to create. If you follow the prompts
 accurately, your new field will be set up as follows:
 
-  * new field working directory in /var/farm/var/field
-  * new field web site in /var/www/vhosts/example.com/field
+  * new field working directory in /path/to/farm/var/field
+  * new field web site where specified
 
 The field data directory contains the following:
 
@@ -82,7 +81,7 @@ The field data directory contains the following:
    docs/ - contains sample files to create configurations for this
            field
    local/ - where per-field configuration files exist
-   pub/ - a symlink to the wikifarm pub/ directory
+   pub/ - either a symlink to the wikifarm pub/ directory or a copy of it
    wiki.d/ - where the wiki's pages are stored
    uploads/ - where the wiki's attachments are stored
 
@@ -91,12 +90,14 @@ The field web site contains several symbolic links and a file:
    index.php - a symlink to /var/farm/skel/index.php, which should
                have been modified so $FarmD is set to the right path.
 
+   cookbook/ - symlink to the field's cookbook/ directory
+
    local/ - symlink to the field's local/ directory
 
    pub/ - symlink to either the wiki farm's pub directory or a field
           specific pub directory
 
-   uploads/ - symlink to directory for storing attachments in the
+   uploads/ - symlink to the field's directory for storing attachments in the
               field's working directory
 
    .htaccess - contains the apache directives to make the farm work
