@@ -1,19 +1,20 @@
-<?php if (!defined('PmWiki') || !isset($FarmD) ||
-!isset($WikiFieldName)) {
-    echo "NOT SET UP CORRECTLY!!!\n";
-    echo "FarmD=[$FarmD]\n";
-    echo "WikiFieldName=[$WikiFieldName]\n";
-    exit();
-  }
+<?php if (!defined('PmWiki')) exit();
 /**
  * setworkdir - set the working directory for each wikifield
  *
  * @author Tamara Temple <tamara@tamaratemple.com>
  * @created 2011-09-20
- * @version Time-stamp: <2011-10-21 12:51:22 tamara>
+ * @version Time-stamp: <2011-11-12 07:17:50 tamara>
  * @copyright (c) 2011 Tamara Temple Web Development.
  * @license GPLv3
  */
+
+if (!isset($WikiFieldName)) {
+    echo "NOT SET UP CORRECTLY!!!\n";
+    echo "FarmD=[$FarmD]\n";
+    echo "WikiFieldName=[$WikiFieldName]\n";
+    exit();
+  }
 
 /**
  * $FarmD is set in the index.php file in each wiki field's document root 
@@ -29,5 +30,5 @@ $WikiDir = new PageStore("$WorkDir\$FullName", 1);
 $WikiLibDirs =
   array(
 	&$WikiDir,
-	new PageStore("$FarmD/wikilib.d/\$FullName")
+	new PageStore("$FarmD/pmwiki-latest/wikilib.d/\$FullName")
 	);

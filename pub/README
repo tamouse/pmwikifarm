@@ -1,0 +1,5 @@
+Upon installing the farm and pmwiki into pmwiki-latest, copy the pub
+directory up to the farm folder.
+
+  $ cp -r pmwiki-latest/pub .
+

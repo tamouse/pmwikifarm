@@ -1,9 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 #
 # newwiki - create a new wikifield in the wikifarm
 #
 #  Created by Tamara Temple on 2011-09-20.
-#  Version: Time-stamp: <2011-11-12 05:51:36 tamara>
+#  Version: Time-stamp: <2011-11-12 08:11:47 tamara>
 #  Copyright (c) 2011 Tamara Temple Web Development. 
 #  License: GPLv3
 #
@@ -16,87 +16,96 @@ PMWIKIDIR=$FARMDIR/pmwiki-latest
 FIELDSDIR=$FARMDIR/var
 SKELDIR=$FARMDIR/skel
 
-read -p "Enter the wiki's title: " WIKITITLE
-if [ -z "$WIKITITLE" ] ; then
-    echo "You MUST specify a wiki title"
+read -p "Enter the wiki's field name : " WIKIFIELDNAME
+if [ -z "$WIKIFIELDNAME" ] ; then
+    echo "Must give wiki field name"
     exit 1
 fi
-
-WIKITITLE=$(echo "$WIKITITLE" | tr -d '/') # wiki titles and such cannot have a slash in them -- pmwiki rules
-
-DEFAULTWIKIFIELDNAME=$(echo "$WIKITITLE" |tr -cd '[:alnum:]'|tr '[:upper:]' '[:lower:]') # remove everything except letters and numbers and make all letters lower case
-
-read -p "Enter the wiki's field name [$DEFAULTWIKIFIELDNAME]: " WIKIFIELDNAME
-if [ -z "$WIKIFIELDNAME" ] ; then
-    WIKIFIELDNAME="$DEFAULTWIKIFIELDNAME"
-fi
 WIKIFIELDNAME=$(echo $WIKIFIELDNAME|tr -cd '[:alnum:]'|tr '[:upper:]' '[:lower:]') # remove everything except letters and numbers and make all letters lower case
-
-DEFAULTSKIN=pmwiki
-read -p "Which skin do you wish to use? [$DEFAULTSKIN] " SKIN
-if [ -z "$SKIN" ] ; then
-    SKIN="$DEFAULTSKIN"
+if [ -e $FIELDSDIR/$WIKIFIELDNAME ] ; then
+    echo $FIELDSDIR/$WIKIFIELDNAME " already exists."
+    exit 1
 fi
 
 read -p "Enter the wiki field's web server folder: " WIKIFIELDROOT
 if [ -z "$WIKIFIELDROOT" ] ; then
     echo "Must specify a location for the wikifield document root"
-    exit 2;
+    exit 2
+fi
+if [ -e "$WIKIFIELDROOT" ] ; then
+    echo $WIKIFIELDROOT " already exists."
+    exit 2
 fi
 
-$WIKIFIELDROOTDIR = dirname $WIKIFIELDROOT
+WIKIFIELDROOTDIR=`dirname $WIKIFIELDROOT`
 if [ ! -d "$WIKIFIELDROOTDIR" ] ; then
     echo "$WIKIFIELDROOTDIR does not exist. Create it first."
-    exit 2;
+    exit 2
 fi
 
 if [ ! -w "$WIKIFIELDROOTDIR" ] ; then
     echo "$WIKIFIELDROOTDIR is not writeable. Make sure it is writeable first."
-    exit 3
+    exit 2
 fi
 
-DEFAULTLINKPUB=0
+DEFAULTLINKPUB="y"
 read -p "Do you want to use the site-wide pub directory? (Y/n) " LINKPUB
+# echo $LINKPUB
 if [ -z "$LINKPUB" ] ; then
     LINKPUB=$DEFAULTLINKPUB
+#    echo $LINKPUB
 else
     LINKPUB=${LINKPUB:0:1}
+#    echo $LINKPUB
     LINKPUB=$(echo "$LINKPUB" | tr '[:upper:]' '[:lower:]')
-    if [ "y" == "$LINKPUB" ] ; then
-	LINKPUB=0
-    else
-	LINKPUB=1
-    fi
+#    echo $LINKPUB
+#    echo $LINKPUB
 fi
+echo $LINKPUB
 	
+echo "New wiki paramters:"
+echo "Wiki field name: " $WIKIFIELDNAME
+echo "Wiki field document root: " $WIKIFIELDROOT
+if [ "y" == "$LINKPUB" ] ; then
+    echo "Linking to farm's pub directory"
+else
+    echo "Copy farm's pub directory to new wiki"
+fi
+echo
+read -p "Proceed with installation? [y/N] " PROCEED
+if [ -z "$PROCEED" ] ; then exit; fi
+PROCEED=$(echo ${PROCEED:0:1} | tr '[:upper:]' '[:lower:]')
+if [ "n" == "$PROCEED" ] ; then exit; fi
+
 mkdir -p $FIELDSDIR/$WIKIFIELDNAME || exit 4
 cd $FIELDSDIR/$WIKIFIELDNAME
+if [ "y" == "$LINKPUB" ] ; then
+    ln -s $FARMDIR/pub .
+else
+    cp -r $FARMDIR/pub .
+fi
 for d in $SKELDIR/* ; do
     if [ -d $d ] ; then # copy just the directories; the files go straight into the wiki field's web directory
 	cp -r $d .
     fi
 done
 
-cat $PMWIKIDIR/docs/sample-local-config.php | \
-    sed -e "s/@WIKIFIELDNAME@/$WIKIFIELDNAME/g" \
-    -e "s/@WIKITITLE@/$WIKITITLE/g" \
-    -e "s/@SKIN@/$SKIN/g" > local/config.php
+cp $SKELDIR/docs/sample-local-config.php local/config.php
+sed -i.bak -e "s/@WIKIFIELDNAME@/$WIKIFIELDNAME/g" local/config.php
 
-cp $PMWIKIDIR/docs/sample-config.php local/local-config.php # this file has already been made benign by the install script
+cp $PMWIKIDIR/docs/sample-config.php local/local-config.php
 
-cd $WIKIFIELDROOT
+mkdir $WIKIFIELDROOT || exit 5
+
+cd $WIKIFIELDROOT || exit 6
 ln -s $SKELDIR/index.php .
-if $LINKPUB ; then
-    ln -s $FARMDIR/pub .
-else
-    cp -r $FARMDIR/pub $FIELDSDIR/$WIKIFIELDNAME
-    ln -s $FIELDSDIR/$WIKIFIELDNAME/pub .
-fi
+ln -s $FIELDSDIR/$WIKIFIELDNAME/pub .
 ln -s $FIELDSDIR/$WIKIFIELDNAME/cookbook .
 ln -s $FIELDSDIR/$WIKIFIELDNAME/local .
 ln -s $FIELDSDIR/$WIKIFIELDNAME/uploads .
 cp $SKELDIR/.htaccess .
 
+cd $FARMDIR
 
 echo "Make sure directories have proper permissions."
 echo

@@ -20,3 +20,8 @@ skel/index.php
 # Disregard the dynamic portion
 var/*
 !var/README
+local/*
+!local/.htaccess
+!local/README
+pub/*
+!pub/README
